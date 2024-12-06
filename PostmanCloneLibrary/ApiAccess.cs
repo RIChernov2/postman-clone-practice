@@ -1,11 +1,18 @@
 ﻿namespace PostmanCloneLibrary;
 
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 public class ApiAccess : IApiAccess
 {
-    private readonly HttpClient _client = new();
+    private readonly HttpClient _client;
+
+    public ApiAccess(IHttpClientFactory factory)
+    {
+        _client = factory.CreateClient();
+    }
+
     public async Task<string> CallApiAsync(
         string url,
         bool formatOutput = true,
@@ -16,8 +23,6 @@ public class ApiAccess : IApiAccess
         if (response.IsSuccessStatusCode)
         {
             string json = await response.Content.ReadAsStringAsync();
-            //return json;
-            //return $"""{json}""";
 
             if (!formatOutput) return json;
 

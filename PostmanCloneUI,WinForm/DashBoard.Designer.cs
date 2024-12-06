@@ -40,11 +40,14 @@
             mainPanel = new TableLayoutPanel();
             apiPanel = new TableLayoutPanel();
             apiTextPanel = new TableLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            httpVerbSelection = new ComboBox();
             resultsPanel = new TableLayoutPanel();
             statusStrip.SuspendLayout();
             mainPanel.SuspendLayout();
             apiPanel.SuspendLayout();
             apiTextPanel.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             resultsPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -77,7 +80,7 @@
             apiTextBox.Dock = DockStyle.Fill;
             apiTextBox.Location = new Point(3, 7);
             apiTextBox.Name = "apiTextBox";
-            apiTextBox.Size = new Size(563, 39);
+            apiTextBox.Size = new Size(438, 39);
             apiTextBox.TabIndex = 1;
             apiTextBox.TextChanged += apiTextBox_TextChanged;
             // 
@@ -173,15 +176,17 @@
             // 
             // apiPanel
             // 
-            apiPanel.ColumnCount = 4;
+            apiPanel.ColumnCount = 5;
             apiPanel.ColumnStyles.Add(new ColumnStyle());
+            apiPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 125F));
             apiPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             apiPanel.ColumnStyles.Add(new ColumnStyle());
             apiPanel.ColumnStyles.Add(new ColumnStyle());
-            apiPanel.Controls.Add(apiTextPanel, 1, 1);
+            apiPanel.Controls.Add(apiTextPanel, 2, 1);
             apiPanel.Controls.Add(apiLabel, 0, 1);
-            apiPanel.Controls.Add(callApi, 2, 1);
-            apiPanel.Controls.Add(clearApiText, 3, 1);
+            apiPanel.Controls.Add(callApi, 3, 1);
+            apiPanel.Controls.Add(tableLayoutPanel1, 1, 1);
+            apiPanel.Controls.Add(clearApiText, 4, 1);
             apiPanel.Dock = DockStyle.Fill;
             apiPanel.Location = new Point(8, 40);
             apiPanel.Name = "apiPanel";
@@ -199,14 +204,44 @@
             apiTextPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             apiTextPanel.Controls.Add(apiTextBox, 0, 1);
             apiTextPanel.Dock = DockStyle.Fill;
-            apiTextPanel.Location = new Point(71, 1);
+            apiTextPanel.Location = new Point(196, 1);
             apiTextPanel.Name = "apiTextPanel";
             apiTextPanel.RowCount = 3;
             apiTextPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             apiTextPanel.RowStyles.Add(new RowStyle());
             apiTextPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            apiTextPanel.Size = new Size(569, 54);
+            apiTextPanel.Size = new Size(444, 54);
             apiTextPanel.TabIndex = 8;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(httpVerbSelection, 0, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(71, 1);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 34.848484F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 65.15151F));
+            tableLayoutPanel1.Size = new Size(119, 54);
+            tableLayoutPanel1.TabIndex = 8;
+            // 
+            // httpVerbSelection
+            // 
+            httpVerbSelection.BackColor = SystemColors.Window;
+            httpVerbSelection.Dock = DockStyle.Fill;
+            httpVerbSelection.DrawMode = DrawMode.OwnerDrawFixed;
+            httpVerbSelection.DropDownStyle = ComboBoxStyle.DropDownList;
+            httpVerbSelection.FormattingEnabled = true;
+            httpVerbSelection.Items.AddRange(new object[] { "GET", "POST" });
+            httpVerbSelection.Location = new Point(3, 11);
+            httpVerbSelection.Name = "httpVerbSelection";
+            httpVerbSelection.Size = new Size(113, 40);
+            httpVerbSelection.TabIndex = 9;
+            httpVerbSelection.DrawItem += httpVerbSelection_DrawItem;
+            httpVerbSelection.SelectedIndexChanged += httpVerbSelection_SelectedIndexChanged;
             // 
             // resultsPanel
             // 
@@ -234,6 +269,7 @@
             Controls.Add(statusStrip);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Margin = new Padding(6);
+            MinimumSize = new Size(400, 400);
             Name = "DashBoard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Postman Clone";
@@ -246,6 +282,7 @@
             apiPanel.PerformLayout();
             apiTextPanel.ResumeLayout(false);
             apiTextPanel.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
             resultsPanel.ResumeLayout(false);
             resultsPanel.PerformLayout();
             ResumeLayout(false);
@@ -267,5 +304,7 @@
         private TableLayoutPanel resultsPanel;
         private TableLayoutPanel apiPanel;
         private TableLayoutPanel apiTextPanel;
+        private ComboBox httpVerbSelection;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
